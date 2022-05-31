@@ -120,7 +120,10 @@ with scatterplot:
 with guesstimator:
     st.title("Predicting the Quality")
 
-    cols = st.columns(3)
+    form_key = "prediction_form"
+    form = st.form(key=form_key)
+
+    cols = form.columns(3)
 
     index = 0
     col_maxs = []
@@ -129,18 +132,18 @@ with guesstimator:
         max_val = wines[c].max()
 
         starting_val = min_val + ((max_val - min_val) / 2.0)
-        c_max = cols[index].slider(c, min_value=min_val, max_value=max_val, step=0.1, value=float(starting_val))
+        c_max = cols[index].slider(c, min_value=min_val, max_value=max_val, step=0.001, value=float(starting_val))
         col_maxs.append(c_max)
         if index >= 2:
             index = 0
         else:
             index += 1
 
-    fixed_aciditiy, volatile_acidity, citric_acid, residual_sugar, chlorides, free_sulfur_dioxide, \
+    fixed_acidity, volatile_acidity, citric_acid, residual_sugar, chlorides, free_sulfur_dioxide, \
         total_sulfur_dioxide, density, pH, sulphates, alcohol = col_maxs
 
-    if st.button("Get Prediction"):
-        custom_prediction = clf.predict([[fixed_aciditiy, volatile_acidity, citric_acid,
+    if form.form_submit_button("Get Prediction"):
+        custom_prediction = clf.predict([[fixed_acidity, volatile_acidity, citric_acid,
                                           residual_sugar, chlorides, free_sulfur_dioxide,
                                           total_sulfur_dioxide, density, pH,
                                           sulphates, alcohol]])
