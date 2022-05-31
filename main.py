@@ -139,10 +139,11 @@ with guesstimator:
     fixed_aciditiy, volatile_acidity, citric_acid, residual_sugar, chlorides, free_sulfur_dioxide, \
         total_sulfur_dioxide, density, pH, sulphates, alcohol = col_maxs
 
-    custom_prediction = clf.predict([[fixed_aciditiy, volatile_acidity, citric_acid,
-                                      residual_sugar, chlorides, free_sulfur_dioxide,
-                                      total_sulfur_dioxide, density, pH,
-                                      sulphates, alcohol]])
+    if st.button("Get Prediction"):
+        custom_prediction = clf.predict([[fixed_aciditiy, volatile_acidity, citric_acid,
+                                          residual_sugar, chlorides, free_sulfur_dioxide,
+                                          total_sulfur_dioxide, density, pH,
+                                          sulphates, alcohol]])
 
-    st.text(f"Predicted Quality: {custom_prediction}")
-    st.text(f"Accuracy Score: {clf_acc_score * 100.0:.2f}% | Cross Val Score: {clf_cross_val * 100.0:.2f}%")
+        st.text(f"Predicted Quality: {custom_prediction}")
+        st.text(f"Accuracy Score: {clf_acc_score * 100.0:.2f}% | Cross Val Score: {clf_cross_val * 100.0:.2f}%")
